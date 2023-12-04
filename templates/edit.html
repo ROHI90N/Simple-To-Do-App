@@ -1,0 +1,58 @@
+{% extends "layout.html" %}
+{% block title %}
+Update Task
+{% endblock %}
+{% block content %}
+    <style>
+        /* Add your CSS styles here */
+        h1 {
+            color: #333;
+        }
+
+        form {
+            max-width: 400px;
+            margin: 0 auto;
+        }
+
+        input[type="text"] {
+            width: 100%;
+            padding: 8px;
+            margin: 5px 0;
+            box-sizing: border-box;
+        }
+
+        input[type="submit"] {
+            background-color: #4CAF50;
+            color: white;
+            padding: 10px 15px;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+        }
+    </style>
+
+        <h1>Update Task Record</h1>
+        {% for row in rows %}
+        <form action="{{ url_for('editrec') }}" method="POST">
+            <h3 style="color:red">Task ID: {{ row['rowid']}}</h3>
+            <input type="hidden" name="rowid" value="{{ row['rowid'] }}">
+            <strong>Task Name</strong><br>
+            <input type="text" name="task" value="{{ row['task'] }}"/><br>
+
+            <strong>Task Content</strong><br>
+            <input type="text" name="task_content" value="{{ row['task_content'] }}"/><br>
+
+            <strong>Priority</strong><br>
+            <select name="prio" value="{{ row['prio'] }}">
+                <option value="low">Low</option>
+                <option value="medium">Medium</option>
+                <option value="high">High</option>
+            </select><br>
+
+            <strong>Due Date</strong><br>
+            <input type="date" name="dd" value="{{ row['dd'] }}"/><br>
+
+            <input type="submit" value="Submit" /><br>
+        </form>
+        {% endfor %}
+{% endblock %}
